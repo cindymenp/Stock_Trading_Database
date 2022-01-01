@@ -1,15 +1,12 @@
 import glob
 import pandas as pd
+from pandas import read_csv
 import ipywidgets as widgets
 from ipywidgets import interact, interact_manual
 import plotly.express as px
-from pandas import read_csv
-import os
-from IPython.display import display
-from IPython.display import Image
-from pathlib import Path
 import plotly.graph_objects as go
-import pandas as pd
+import os
+from IPython.display import display, Image
 
 
 # get data file names
