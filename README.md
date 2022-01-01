@@ -16,6 +16,8 @@ Also known as jupyter-widgets or simply widgets, are interactive HTML widgets fo
 
 #### Usage ####
 
+```` 
+
 @interact
 def show_csv(file=os.listdir(csv_directory)):
     display(pd.read_csv(csv_directory+file, sep = ';'))
@@ -44,6 +46,7 @@ def display_time_series(param = tickers):
     fig = px.line(tickers, x=tickers['time'], y=param) 
     fig.show()
 
+```` 
 
 ## plotly.express
 
@@ -60,6 +63,8 @@ The figures created, manipulated and rendered by the plotly Python library are r
 
 #### Usage ####
 
+```` 
+
 df = big_frame
 
 fig = go.Figure()
@@ -73,11 +78,15 @@ fig.add_trace(go.Bar(
 fig.update_xaxes(showgrid=True, ticklabelmode="period")
 fig.show()
 
+```` 
+
 ## os
 
 This module provides a portable way of using operating system dependent functionality. If you just want to read or write a file see open(), if you want to manipulate paths, see the os.path module, and if you want to read all the lines in all the files on the command line see the fileinput module. 
 
 #### Usage ####
+
+```` 
 
 def show_csv(file=os.listdir(csv_directory)):
     display(pd.read_csv(csv_directory+file, sep = ';'))
@@ -102,13 +111,15 @@ def display_time_series(param = tickers):
     fig = px.line(tickers, x=tickers['time'], y=param) 
     fig.show()
 
-
+```` 
 
 ## IPython.display
 
 When this object is returned by an input cell or passed to the display function, it will result in Image controls being displayed in the frontend (only works in the notebook).
 
 #### Usage ####
+
+```` 
 
 def show_csv(file=os.listdir(csv_directory)):
     display(pd.read_csv(csv_directory+file, sep = ';'))
@@ -119,6 +130,7 @@ def show_images(ticker_name = code):
     list_match = [x for x in list_code if x.startswith(ticker_name + '_')]
     for file in list_match:
         display(Image(fdir+file))
+```` 
         
 # Installation of all libraries
 
