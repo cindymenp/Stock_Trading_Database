@@ -120,22 +120,22 @@ for ticker in tickers:
 
     daily_ranges.append((pct_daily_range))
 
-#Combine tickers table with Entry, Exit and Entry & Exit rows
+# Combine tickers table with Entry, Exit and Entry & Exit rows
 
 combined_data = tickers
 combined_data['entry_price'] = high_range
 combined_data['exit_price'] = exit_range
 combined_data['entry_exit_price'] = entry_exit_range 
 
-#Maximum value of Entry and Exit values
+# Maximum values only
 
 combined_data.style.highlight_max(subset = ['exit_price','entry_price'])
 
-#Minimum value of Entry and Exit values
+# Minimum values only
 
 combined_data.style.highlight_min(subset = ['exit_price','entry_price'])
 
-#Minimum and maximum values of Entry and Exit values
+# Gradient of min and max values
 
 combined_data.style.background_gradient(subset = ['exit_price','entry_price'], axis=0, vmin=30.0, vmax=100.0)
 
