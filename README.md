@@ -126,7 +126,7 @@ Use for all libraries the package manager pip to install .
 
 ## glob
 
-Termianl:
+Termial:
 
 Python 2: pip install glob //Python 3: pip3 install glob
 
@@ -136,7 +136,7 @@ Python 2: %pip install glob //Python 3: %pip3 install glob
 
 ## ipywidgets
 
-Termianl:
+Termial:
 
 Python 2: pip install ipywidgets//Python 3: pip3 install ipywidgets
 
@@ -146,7 +146,7 @@ Python 2: %pip install ipywidgets //Python 3: %pip3 install ipywidgets
 
 ## plotly.express
 
-Termianl:
+Termial:
 
 Python 2: pip install plotly-express//Python 3: pip3 install plotly-express
 
@@ -156,7 +156,7 @@ Python 2: %pip install plotly-express //Python 3: %pip install plotly-express
 
 ## plotly.graph_objects 
 
-Termianl:
+Termial:
 
 Python 2: pip install plotly //Python 3: pip3 install plotly
 
