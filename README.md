@@ -184,7 +184,7 @@ Python 2: %pip install plotly //Python 3: %pip3 install plotly
 
 ## os
 
-Termianl:
+Termial:
 
 Python 2: pip install os-sys //Python 3: pip3 install os-sys
 
@@ -195,7 +195,7 @@ Python 2: %pip install os-sys //Python 3: %pip3 install os-sys
 
 ## IPython.display
 
-Termianl:
+Termial:
 
 Python 2: pip install ipython //Python 3: pip3 install ipython
 
