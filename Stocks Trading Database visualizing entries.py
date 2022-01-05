@@ -82,59 +82,51 @@ def display_time_series(param = tickers):
     fig.show()
 
 
-#Entry price
+#Values
 
 days_high = tickers["high"]
 days_low = tickers["low"]
+days_close = tickers["close"]
 
-# Create list for Daily Range values
+#low range
 daily_ranges = []
 
 for ticker in tickers:
 
-    high_range = days_high /2
+    low_range = days_close
 
-    daily_ranges.append((pct_daily_range))
+low_range
 
-#Exit price
+#high range
 
-daily_ranges = []
-
-for ticker in tickers:
-
-    exit_range = days_low /2
-
-    daily_ranges.append((exit_range))
-
-
-#Entry & Exit prices
+days_high = tickers["high"]
+days_low = tickers["low"]
+days_close = tickers["close"]
 
 daily_ranges = []
 
 for ticker in tickers:
 
-    entry_exit_range = (days_low + days_high) /2
+    high_range = days_low + days_high /2
 
-    daily_ranges.append((pct_daily_range))
+
+high_range
+
 
 # Combine tickers table with Entry, Exit and Entry & Exit rows
 
 combined_data = tickers
-combined_data['entry_price'] = high_range
-combined_data['exit_price'] = exit_range
-combined_data['entry_exit_price'] = entry_exit_range 
+combined_data['high_range'] = high_range
+combined_data['low_range'] = low_range
 
-# Maximum values only
+# maximum values only
 
-combined_data.style.highlight_max(subset = ['exit_price','entry_price'])
+combined_data.style.highlight_max(subset = ['low_range','high_range'])
 
-# Minimum values only
+# minimum values only
 
-combined_data.style.highlight_min(subset = ['exit_price','entry_price'])
+combined_data.style.highlight_min(subset =  ['low_range','high_range'])
 
-# Gradient of min and max values
-
-combined_data.style.background_gradient(subset = ['exit_price','entry_price'], axis=0, vmin=30.0, vmax=100.0)
 
 print(big_frame)
 print(combined_data)
