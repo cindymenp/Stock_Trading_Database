@@ -88,45 +88,30 @@ days_high = tickers["high"]
 days_low = tickers["low"]
 days_close = tickers["close"]
 
-#low range
 daily_ranges = []
 
 for ticker in tickers:
 
-    low_range = days_close
-
-low_range
-
-#high range
-
-days_high = tickers["high"]
-days_low = tickers["low"]
-days_close = tickers["close"]
-
-daily_ranges = []
-
-for ticker in tickers:
-
-    high_range = days_low + days_high /2
-
-
-high_range
-
-
-# Combine tickers table with Entry, Exit and Entry & Exit rows
-
+    profit = (days_low + days_high) /2
+   
 combined_data = tickers
-combined_data['high_range'] = high_range
-combined_data['low_range'] = low_range
+combined_data['entry_price'] =  entry_price
+combined_data['exit_price'] = exit_price
 
-# maximum values only
+#First entry & Last exit code. Please notice that the underlined rows are the ones to look at.
 
-combined_data.style.highlight_max(subset = ['low_range','high_range'])
-
-# minimum values only
-
-combined_data.style.highlight_min(subset =  ['low_range','high_range'])
-
+@interact
+def show_csv(file=os.listdir(csv_directory)):
+    tickers = pd.read_csv(path+file, sep = ';')
+    combined_data = tickers
+    combined_data['entry_price'] =  entry_price
+    combined_data['exit_price'] = exit_price
+    last_exit = combined_data.groupby(['entry/exit'], as_index='exit').last()
+    first_entry = combined_data.groupby(['entry/exit'], as_index='entry').first()
+    last_exit_style = last_exit.style.set_properties(subset = pd.IndexSlice[['exit'], :], **{'background-color' : 'yellow'})
+    first_entry_style = first_entry.style.set_properties(subset = pd.IndexSlice[['entry'], :], **{'background-color' : 'yellow'})
+    display (first_entry_style)
+    display (last_exit_style)
 
 print(big_frame)
 print(combined_data)
