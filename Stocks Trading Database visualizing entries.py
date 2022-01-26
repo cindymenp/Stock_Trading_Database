@@ -100,6 +100,9 @@ combined_data['exit_price'] = exit_price
 
 #First entry & Last exit code. Please notice that the underlined rows are the ones to look at.
 
+csv_directory = '/Users/cindymendoncapaez/Downloads/Breakout US stocks/breakout/csv/'
+
+
 @interact
 def show_csv(file=os.listdir(csv_directory)):
     tickers = pd.read_csv(path+file, sep = ';')
@@ -110,9 +113,9 @@ def show_csv(file=os.listdir(csv_directory)):
     first_entry = combined_data.groupby(['entry/exit'], as_index='entry').first()
     last_exit_style = last_exit.style.set_properties(subset = pd.IndexSlice[['exit'], :], **{'background-color' : 'yellow'})
     first_entry_style = first_entry.style.set_properties(subset = pd.IndexSlice[['entry'], :], **{'background-color' : 'yellow'})
- 
-
-display (first_entry_style)
-display (last_exit_style)
+    display (first_entry_style)
+    display (last_exit_style)
+    
+    
 print(big_frame)
 print(combined_data)
