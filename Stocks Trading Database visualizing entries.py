@@ -98,24 +98,49 @@ combined_data = tickers
 combined_data['entry_price'] =  entry_price
 combined_data['exit_price'] = exit_price
 
-#First entry & Last exit code. Please notice that the underlined rows are the ones to look at.
+
+#first entry price profit calculator
+
+first_entry_price = first_entry["entry_price"][0]
+first_exit_price = first_entry["exit_price"][1]
+
+profit_entry = first_exit_price  - first_entry_price
+
+profit_entry
+
+
+#last exit price profit calculator
+
+last_exit_price = last_exit["exit_price"][1]
+last_entry_price = last_exit["entry_price"][0]
+
+profit_exit =  last_exit_price - last_entry_price 
+
+profit_exit
+
+
+#First entry & Last exit code with profit. Please notice that the underlined rows are the ones to look at.
 
 csv_directory = '/Users/cindymendoncapaez/Downloads/Breakout US stocks/breakout/csv/'
 
-
 @interact
 def show_csv(file=os.listdir(csv_directory)):
-    tickers = pd.read_csv(path+file, sep = ';')
+    tickers = pd.read_csv(path+file, sep = ',')
     combined_data = tickers
-    combined_data['entry_price'] =  entry_price
-    combined_data['exit_price'] = exit_price
+    combined_data.columns = ['time', 'open', 'high', 'low', 'close', 'MA50', 'MA20', 'MA10', 'ADR', 'DV M', 'MA20 DV M', 'entry/exit'] 
+    days_high = tickers["high"]
+    days_low = tickers["low"]
+    days_close = tickers["close"]
+    combined_data['entry_price'] = (days_low + days_high) /2
+    combined_data['exit_price'] = days_close
+    combined_data['profit_entry'] = profit_entry
+    combined_data['profit_exit'] = profit_exit
     last_exit = combined_data.groupby(['entry/exit'], as_index='exit').last()
     first_entry = combined_data.groupby(['entry/exit'], as_index='entry').first()
     last_exit_style = last_exit.style.set_properties(subset = pd.IndexSlice[['exit'], :], **{'background-color' : 'yellow'})
     first_entry_style = first_entry.style.set_properties(subset = pd.IndexSlice[['entry'], :], **{'background-color' : 'yellow'})
     display (first_entry_style)
     display (last_exit_style)
-    
     
 print(big_frame)
 print(combined_data)
