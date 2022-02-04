@@ -149,7 +149,7 @@ def show_csv(file=os.listdir(csv_directory)):
     
 #Returns Calculator
 
-returns = df
+returns = combined_data
 returns['Return'] = returns['close'].pct_change()
 returns.head()
 
