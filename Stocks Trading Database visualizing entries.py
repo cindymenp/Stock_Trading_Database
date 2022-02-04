@@ -120,6 +120,10 @@ def show_csv(file=os.listdir(csv_directory)):
     display (first_entry_style)
     display (last_exit_style)
 
+    
+    
+#Profit, risk and R calculators
+
 @interact
 def show_csv(file=os.listdir(csv_directory)):
     tickers = pd.read_csv(path+file, sep = ',')
@@ -142,6 +146,17 @@ def show_csv(file=os.listdir(csv_directory)):
     combined_data['risk'] = combined_data['risk'].fillna(method='ffill')
     combined_data.loc[combined_data['entry/exit'].isin(["exit"]), 'R'] = combined_data['profit']/combined_data['risk']
     display(combined_data)
+    
+#Returns Calculator
+
+returns = df
+returns['Return'] = returns['close'].pct_change()
+returns.head()
+
+
+#Returns graph
+
+sns.distplot(returns['Return'],color='green',bins=200)
     
 print(big_frame)
 print(combined_data)
