@@ -99,26 +99,6 @@ combined_data['entry_price'] =  entry_price
 combined_data['exit_price'] = exit_price
 
 
-#first entry price profit calculator
-
-first_entry_price = first_entry["entry_price"][0]
-first_exit_price = first_entry["exit_price"][1]
-
-profit_entry = first_exit_price  - first_entry_price
-
-profit_entry
-
-
-#last exit price profit calculator
-
-last_exit_price = last_exit["exit_price"][1]
-last_entry_price = last_exit["entry_price"][0]
-
-profit_exit =  last_exit_price - last_entry_price 
-
-profit_exit
-
-
 #First entry & Last exit code with profit. Please notice that the underlined rows are the ones to look at.
 
 csv_directory = '/Users/cindymendoncapaez/Downloads/Breakout US stocks/breakout/csv/'
@@ -133,14 +113,35 @@ def show_csv(file=os.listdir(csv_directory)):
     days_close = tickers["close"]
     combined_data['entry_price'] = (days_low + days_high) /2
     combined_data['exit_price'] = days_close
-    combined_data['profit_entry'] = profit_entry
-    combined_data['profit_exit'] = profit_exit
     last_exit = combined_data.groupby(['entry/exit'], as_index='exit').last()
     first_entry = combined_data.groupby(['entry/exit'], as_index='entry').first()
     last_exit_style = last_exit.style.set_properties(subset = pd.IndexSlice[['exit'], :], **{'background-color' : 'yellow'})
     first_entry_style = first_entry.style.set_properties(subset = pd.IndexSlice[['entry'], :], **{'background-color' : 'yellow'})
     display (first_entry_style)
     display (last_exit_style)
+
+@interact
+def show_csv(file=os.listdir(csv_directory)):
+    tickers = pd.read_csv(path+file, sep = ',')
+    combined_data = tickers
+    combined_data.columns = ['time', 'open', 'high', 'low', 'close', 'MA50', 'MA20', 'MA10', 'ADR', 'DV M', 'MA20 DV M', 'entry/exit'] 
+    days_high = tickers["high"]
+    days_low = tickers["low"]
+    days_close = tickers["close"]
+    combined_data = combined_data[combined_data['entry/exit'].isin(["entry","exit"])]
+    combined_data['entry_price']= np.NaN
+    combined_data['exit_price'] = np.NaN    
+    combined_data['profit'] = np.NaN
+    combined_data['risk'] = np.NaN
+    combined_data['R'] = np.NaN
+    combined_data.loc[combined_data['entry/exit'].isin(["entry"]), 'entry_price'] = (combined_data['low'] + combined_data['high']) /2
+    combined_data.loc[combined_data['entry/exit'].isin(["exit"]), 'exit_price'] = combined_data['close']
+    combined_data['entry_price'] = combined_data['entry_price'].fillna(method='ffill')
+    combined_data.loc[combined_data['entry/exit'].isin(["exit"]), 'profit'] = combined_data['exit_price']-combined_data['entry_price']
+    combined_data.loc[combined_data['entry/exit'].isin(["entry"]),'risk'] = combined_data['entry_price']-combined_data['low']
+    combined_data['risk'] = combined_data['risk'].fillna(method='ffill')
+    combined_data.loc[combined_data['entry/exit'].isin(["exit"]), 'R'] = combined_data['profit']/combined_data['risk']
+    display(combined_data)
     
 print(big_frame)
 print(combined_data)
